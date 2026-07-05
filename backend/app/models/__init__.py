@@ -3,6 +3,7 @@ from app.models.ticket import Ticket
 from app.models.agent_decision import AgentDecision
 from app.models.agent_log import AgentLog
 from app.models.enums import TicketStatus, TicketPriority
+from app.models.knowledge_base import KnowledgeBase
 
 __all__ = [
     "User",
@@ -10,5 +11,6 @@ __all__ = [
     "AgentDecision",
     "AgentLog",
     "TicketStatus",
-    "TicketPriority"
+    "TicketPriority",
+    "KnowledgeBase"
 ]

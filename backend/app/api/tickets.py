@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -73,3 +73,24 @@ async def update_ticket(ticket_id: int, ticket_update: TicketUpdate, db: Session
     db.commit()
     db.refresh(ticket)
     return ticket
+
+@router.post("/{ticket_id}/run-pipeline")
+async def run_ticket_pipeline(ticket_id: int, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    ticket = db.query(Ticket).filter(Ticket.id == ticket_id).first()
+    if not ticket:
+        raise HTTPException(status_code=404, detail="Ticket not found")
+    
+    from app.agents.orchestrator import orchestrate_ticket_pipeline
+    from app.db.config import SessionLocal
+
+    def run_pipeline_task(t_id: int):
+        session = SessionLocal()
+        try:
+            orchestrate_ticket_pipeline(session, t_id)
+        except Exception as e:
+            print(f"Error in background pipeline: {e}")
+        finally:
+            session.close()
+
+    background_tasks.add_task(run_pipeline_task, ticket_id)
+    return {"message": "Agent pipeline started in background", "ticket_id": ticket_id}
