@@ -426,9 +426,9 @@ function App() {
       {/* Sidebar */}
       <aside className="sidebar">
         <div className="logo-section">
-          <div className="logo-icon">🤖</div>
+          <img src="/logo.png" alt="Logo" className="logo-img" />
           <div>
-            <h2>Antigravity</h2>
+            <h2>AnchorGravity</h2>
             <span className="logo-subtitle">Agentic Helpdesk</span>
           </div>
         </div>

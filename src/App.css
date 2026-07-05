@@ -68,14 +68,10 @@ body {
   padding-left: 6px;
 }
 
-.logo-icon {
-  font-size: 26px;
-  background: linear-gradient(135deg, var(--primary), #818cf8);
+.logo-img {
   width: 44px;
   height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 4px 14px var(--primary-glow);
 }
