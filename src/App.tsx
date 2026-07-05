@@ -138,7 +138,7 @@ function App() {
   });
 
   const [isPipelineRunning, setIsPipelineRunning] = useState(false);
-  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pollingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const terminalEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
